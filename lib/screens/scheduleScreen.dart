@@ -39,7 +39,8 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
   GlobalKey<FormState> _userInputCourseFormKey = GlobalKey();
 
   DateTime startTime = DateTime.now();
-  DateTime endTime = DateTime.now().add(Duration(days: 1));
+  DateTime endTime = DateTime.now();
+  DateTime created = DateTime.now();
 
   selectTime() async {
     TimeOfDay time = await showTimePicker(
@@ -126,8 +127,12 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                         if ("${startTime.hour} :  ${startTime.minute}" !=
                             "${endTime.hour} :  ${endTime.minute}")
                           {
-                            calendarClient.insert(myController.text,
-                                myController2.text, startTime, endTime, context)
+                            calendarClient.insert(
+                                myController.text,
+                                myController2.text,
+                                startTime,
+                                endTime,
+                                context),
                           }
                         else
                           {
@@ -403,7 +408,8 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                 width: MediaQuery.of(context).size.width - 160,
                 padding: EdgeInsets.only(left: 5),
                 child: Text(
-                  DateFormat('kk:mm:a').format(startTime),
+                  "${DateFormat('dd-MM-yyyy').format(startTime)} "
+                  " ${DateFormat('kk:mm:a').format(startTime)}",
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
@@ -494,7 +500,8 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                 width: MediaQuery.of(context).size.width - 160,
                 padding: EdgeInsets.only(left: 5),
                 child: Text(
-                  DateFormat('kk:mm:a').format(endTime),
+                  "${DateFormat('dd-MM-yyyy').format(endTime)} "
+                  " ${DateFormat('kk:mm:a').format(endTime)}",
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
